@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { HiTrash } from "react-icons/hi";
+import { HiPencil } from "react-icons/hi";
 
-export default function Card({ name, thoughts, id, onRemoveCard }) {
+export default function Card({ name, thoughts, id, onRemoveCard, onEditCard }) {
   return (
     <StyledCard>
       <h4>{name} is thinking about...</h4>
@@ -9,6 +10,9 @@ export default function Card({ name, thoughts, id, onRemoveCard }) {
       <StyledRemoveButton onClick={() => onRemoveCard(id)}>
         <HiTrash size="35px" />
       </StyledRemoveButton>
+      <StyledEditButton onClick={() => onEditCard(id)}>
+        <HiPencil size="35px" />
+      </StyledEditButton>
     </StyledCard>
   );
 }
@@ -24,5 +28,11 @@ const StyledCard = styled.div`
 const StyledRemoveButton = styled.button`
   position: absolute;
   top: 5px;
+  right: 5px;
+`;
+
+const StyledEditButton = styled.button`
+  position: absolute;
+  top: 55px;
   right: 5px;
 `;
