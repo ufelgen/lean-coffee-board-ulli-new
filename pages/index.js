@@ -15,10 +15,14 @@ export default function HomePage() {
     console.log(cards);
   }
 
+  function handleRemoveCard(id) {
+    setCards(cards.filter((card) => card.id !== id));
+  }
+
   return (
     <>
       <Header />
-      <CardSection array={cards} />
+      <CardSection array={cards} onRemoveCard={handleRemoveCard} />
       <Form onAddCard={handleAddCard} />
     </>
   );

@@ -16,8 +16,8 @@ export default function Form({ onAddCard }) {
   return (
     <>
       <StyledFooter>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="thoughts">your question</label>
+        <StyledForm onSubmit={handleSubmit}>
+          <label htmlFor="thoughts">your thoughts: </label>
           <input
             id="thoughts"
             name="thoughts"
@@ -25,7 +25,7 @@ export default function Form({ onAddCard }) {
             placeholder="type your thoughts..."
             required
           />
-          <label htmlFor="name">your name</label>
+          <label htmlFor="name"> your name: </label>
           <input
             id="name"
             name="name"
@@ -34,7 +34,7 @@ export default function Form({ onAddCard }) {
             required
           />
           <StyledButton type="submit"> + </StyledButton>
-        </form>
+        </StyledForm>
       </StyledFooter>
     </>
   );
@@ -42,13 +42,19 @@ export default function Form({ onAddCard }) {
 
 const StyledFooter = styled.footer`
   background-color: grey;
-  display: flex;
-  align-items: center;
   position: fixed;
   bottom: 0;
-  height: 5vh;
+  height: 10vh;
   width: 100%;
+`;
+
+const StyledForm = styled.form`
+  margin-top: 15px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
   font-size: 20px;
+  justify-content: space-around;
 `;
 
 const StyledButton = styled.button`
