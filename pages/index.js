@@ -2,6 +2,7 @@ import Header from "../components/Header";
 import CardSection from "../components/CardSection";
 import Form from "../components/Form";
 import { nanoid } from "nanoid";
+import styled from "styled-components";
 
 import { useState } from "react";
 import { useEffect } from "react";
@@ -29,12 +30,29 @@ export default function HomePage() {
     getQuestions();
   }, []);
 
-  function handleAddCard(newCard) {
-    setCards([{ id: nanoid(), ...newCard }, ...cards]);
+  async function pushNewCard(newCard) {
+    await fetch(
+      "https://lean-coffee-board-api-nextjs.vercel.app/api/questions",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newCard),
+      }
+    );
+    getQuestions();
   }
 
-  function handleRemoveCard(id) {
-    setCards(cards.filter((card) => card.id !== id));
+  async function handleRemoveCard(id) {
+    // setCards(cards.filter((card) => card.id !== id));
+    await fetch(
+      `https://lean-coffee-board-api-nextjs.vercel.app/api/questions/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+    getQuestions();
   }
 
   function handleEditCard(id) {
@@ -45,16 +63,22 @@ export default function HomePage() {
   return (
     <>
       <Header />
-      <CardSection
-        array={cards}
-        onRemoveCard={handleRemoveCard}
-        onEditCard={handleEditCard}
-        editing={editing}
-        setEditing={setEditing}
-        setCards={setCards}
-        editId={editId}
-      />
-      <Form onAddCard={handleAddCard} />
+      <StyledMain>
+        <CardSection
+          array={cards}
+          onRemoveCard={handleRemoveCard}
+          onEditCard={handleEditCard}
+          editing={editing}
+          setEditing={setEditing}
+          setCards={setCards}
+          editId={editId}
+        />
+      </StyledMain>
+      <Form onCreateNew={pushNewCard} />
     </>
   );
 }
+
+const StyledMain = styled.main`
+  margin-bottom: 15vh;
+`;
