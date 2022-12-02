@@ -28,7 +28,7 @@ export default function HomePage() {
 
   useEffect(() => {
     getQuestions();
-  }, []);
+  }, [cards]);
 
   async function pushNewCard(newCard) {
     await fetch(
@@ -45,11 +45,24 @@ export default function HomePage() {
   }
 
   async function handleRemoveCard(id) {
-    // setCards(cards.filter((card) => card.id !== id));
     await fetch(
       `https://lean-coffee-board-api-nextjs.vercel.app/api/questions/${id}`,
       {
         method: "DELETE",
+      }
+    );
+    getQuestions();
+  }
+
+  async function handleEditedCard(editId, updatedQuestion) {
+    await fetch(
+      `https://lean-coffee-board-api-nextjs.vercel.app/api/questions/${editId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedQuestion),
       }
     );
     getQuestions();
@@ -72,6 +85,7 @@ export default function HomePage() {
           setEditing={setEditing}
           setCards={setCards}
           editId={editId}
+          onSaveEdited={handleEditedCard}
         />
       </StyledMain>
       <Form onCreateNew={pushNewCard} />

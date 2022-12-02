@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { HiTrash } from "react-icons/hi";
 import { HiPencil } from "react-icons/hi";
+import CardSection from "./CardSection";
 
 export default function Card({
   name,
@@ -13,20 +14,26 @@ export default function Card({
   setCards,
   editId,
   array,
+  onSaveEdited,
 }) {
   function handleSubmitEdit(event) {
     event.preventDefault();
     const newName = event.target.elements.newName.value;
     const newThoughts = event.target.elements.newThoughts.value;
-
-    setCards(
-      array.map((item) => {
-        if (item.id === editId) {
-          return { id: item.id, name: newName, text: newThoughts };
-        }
-        return item;
-      })
-    );
+    const editedQuestion = array.map((item) => {
+      if (item.id === editId) {
+        return { id: item.id, name: newName, text: newThoughts };
+      }
+    });
+    onSaveEdited(editId, editedQuestion);
+    // setCards(
+    //   array.map((item) => {
+    //     if (item.id === editId) {
+    //       return { id: item.id, name: newName, text: newThoughts };
+    //     }
+    //     return item;
+    //   })
+    // );
 
     setEditing(false);
   }
@@ -36,7 +43,7 @@ export default function Card({
       <form onSubmit={handleSubmitEdit}>
         <h4>
           {" "}
-          {editing ? (
+          {editing && item.id === editId ? (
             <input
               id="newName"
               name="newName"
