@@ -59,23 +59,39 @@ export default function CardSection({
               </StyledText>{" "}
               {editing && item.id === editId && (
                 <>
-                  <StyledButton type="submit">
+                  <StyledAddButton type="submit">
                     {" "}
-                    <HiOutlineDocumentAdd size="20px" />{" "}
-                  </StyledButton>
-                  <StyledButton type="button" onClick={() => setEditing(false)}>
+                    <HiOutlineDocumentAdd size="35px" />{" "}
+                  </StyledAddButton>
+                  <StyledBackButton
+                    type="button"
+                    onClick={() => setEditing(false)}
+                  >
                     {" "}
-                    <HiArrowLeft />{" "}
-                  </StyledButton>
+                    <HiArrowLeft size="35px" />{" "}
+                  </StyledBackButton>
                 </>
               )}
             </StyledForm>
-            <StyledRemoveButton onClick={() => onRemoveCard(item.id)}>
-              <HiTrash size="35px" />
-            </StyledRemoveButton>
-            <StyledEditButton onClick={() => onEditCard(item.id)}>
-              <HiPencil size="35px" />
-            </StyledEditButton>
+            {editing && item.id === editId ? (
+              <>
+                <StyledRemoveButton disabled>
+                  <HiTrash size="35px" />
+                </StyledRemoveButton>
+                <StyledEditButton disabled>
+                  <HiPencil size="35px" />
+                </StyledEditButton>
+              </>
+            ) : (
+              <>
+                <StyledRemoveButton onClick={() => onRemoveCard(item.id)}>
+                  <HiTrash size="35px" />
+                </StyledRemoveButton>
+                <StyledEditButton onClick={() => onEditCard(item.id)}>
+                  <HiPencil size="35px" />
+                </StyledEditButton>
+              </>
+            )}
           </StyledCard>
         </Fragment>
       ))}
@@ -103,12 +119,20 @@ const StyledEditButton = styled.button`
   right: 5px;
 `;
 
-const StyledButton = styled.button`
-  border-radius: 50%;
+const StyledAddButton = styled.button`
+  position: absolute;
+  top: 5px;
+  right: 65px;
   color: white;
   background-color: black;
-  font-size: 20px;
-  font-weight: bold;
+`;
+
+const StyledBackButton = styled.button`
+  position: absolute;
+  top: 55px;
+  right: 65px;
+  color: white;
+  background-color: black;
 `;
 
 const StyledForm = styled.form`
