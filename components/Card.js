@@ -2,11 +2,66 @@ import styled from "styled-components";
 import { HiTrash } from "react-icons/hi";
 import { HiPencil } from "react-icons/hi";
 
-export default function Card({ name, thoughts, id, onRemoveCard, onEditCard }) {
+export default function Card({
+  name,
+  thoughts,
+  id,
+  onRemoveCard,
+  onEditCard,
+  editing,
+  setEditing,
+  setCards,
+  editId,
+  array,
+}) {
+  function handleSubmitEdit(event) {
+    event.preventDefault();
+    const newName = event.target.elements.newName.value;
+    const newThoughts = event.target.elements.newThoughts.value;
+
+    setCards(
+      array.map((item) => {
+        if (item.id === editId) {
+          return { id: item.id, name: newName, thoughts: newThoughts };
+        }
+        return item;
+      })
+    );
+
+    setEditing(false);
+  }
+
   return (
     <StyledCard>
-      <h4>{name} is thinking about...</h4>
-      <p>{thoughts}</p>
+      <form onSubmit={handleSubmitEdit}>
+        <h4>
+          {" "}
+          {editing ? (
+            <input
+              id="newName"
+              name="newName"
+              type="text"
+              placeholder="edit your name"
+            />
+          ) : (
+            <span>{name}</span>
+          )}{" "}
+          is thinking about...
+        </h4>
+        <p>
+          {editing ? (
+            <input
+              id="newThoughts"
+              name="newThoughts"
+              type="text"
+              placeholder="edit your thoughts..."
+            />
+          ) : (
+            <span>{thoughts}</span>
+          )}
+        </p>{" "}
+        {editing && <StyledButton type="submit"> + </StyledButton>}
+      </form>
       <StyledRemoveButton onClick={() => onRemoveCard(id)}>
         <HiTrash size="35px" />
       </StyledRemoveButton>
@@ -35,4 +90,12 @@ const StyledEditButton = styled.button`
   position: absolute;
   top: 55px;
   right: 5px;
+`;
+
+const StyledButton = styled.button`
+  border-radius: 50%;
+  color: white;
+  background-color: black;
+  font-size: 20px;
+  font-weight: bold;
 `;
