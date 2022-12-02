@@ -2,8 +2,10 @@ import Header from "../components/Header";
 import CardSection from "../components/CardSection";
 import Form from "../components/Form";
 import { nanoid } from "nanoid";
+import styled from "styled-components";
 
 import { useState } from "react";
+import { useEffect } from "react";
 
 export default function HomePage() {
   const [cards, setCards] = useState([]);
@@ -12,15 +14,45 @@ export default function HomePage() {
 
   console.log("cards array: ", cards);
 
-  function handleAddCard(newCard) {
-    setCards([{ id: nanoid(), ...newCard }, ...cards]);
-    console.log(cards);
-    console.log(newCard);
-    console.log(cards);
+  async function getQuestions() {
+    try {
+      const response = await fetch(
+        "https://lean-coffee-board-api-nextjs.vercel.app/api/questions"
+      );
+      const questionList = await response.json();
+      setCards(questionList);
+    } catch (error) {
+      console.error("du kannst gar nichts");
+    }
   }
 
-  function handleRemoveCard(id) {
-    setCards(cards.filter((card) => card.id !== id));
+  useEffect(() => {
+    getQuestions();
+  }, []);
+
+  async function pushNewCard(newCard) {
+    await fetch(
+      "https://lean-coffee-board-api-nextjs.vercel.app/api/questions",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newCard),
+      }
+    );
+    getQuestions();
+  }
+
+  async function handleRemoveCard(id) {
+    // setCards(cards.filter((card) => card.id !== id));
+    await fetch(
+      `https://lean-coffee-board-api-nextjs.vercel.app/api/questions/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+    getQuestions();
   }
 
   function handleEditCard(id) {
@@ -31,16 +63,22 @@ export default function HomePage() {
   return (
     <>
       <Header />
-      <CardSection
-        array={cards}
-        onRemoveCard={handleRemoveCard}
-        onEditCard={handleEditCard}
-        editing={editing}
-        setEditing={setEditing}
-        setCards={setCards}
-        editId={editId}
-      />
-      <Form onAddCard={handleAddCard} />
+      <StyledMain>
+        <CardSection
+          array={cards}
+          onRemoveCard={handleRemoveCard}
+          onEditCard={handleEditCard}
+          editing={editing}
+          setEditing={setEditing}
+          setCards={setCards}
+          editId={editId}
+        />
+      </StyledMain>
+      <Form onCreateNew={pushNewCard} />
     </>
   );
 }
+
+const StyledMain = styled.main`
+  margin-bottom: 15vh;
+`;

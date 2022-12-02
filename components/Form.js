@@ -1,14 +1,15 @@
 import styled from "styled-components";
 
-export default function Form({ onAddCard }) {
-  function handleSubmit(event) {
+export default function Form({ onCreateNew }) {
+  async function handleSubmit(event) {
     event.preventDefault();
     const newCard = {
-      thoughts: event.target.elements.thoughts.value,
+      text: event.target.elements.thoughts.value,
       name: event.target.elements.name.value,
     };
 
-    onAddCard(newCard);
+    onCreateNew(newCard);
+
     event.target.reset();
     event.target.elements.thoughts.focus();
   }

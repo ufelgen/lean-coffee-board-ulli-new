@@ -16,7 +16,7 @@ export default function CardSection({
         <Fragment key={item.id}>
           <Card
             name={item.name}
-            thoughts={item.thoughts}
+            text={item.text}
             id={item.id}
             onRemoveCard={onRemoveCard}
             onEditCard={onEditCard}
