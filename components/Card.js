@@ -4,7 +4,7 @@ import { HiPencil } from "react-icons/hi";
 
 export default function Card({
   name,
-  thoughts,
+  text,
   id,
   onRemoveCard,
   onEditCard,
@@ -22,7 +22,7 @@ export default function Card({
     setCards(
       array.map((item) => {
         if (item.id === editId) {
-          return { id: item.id, name: newName, thoughts: newThoughts };
+          return { id: item.id, name: newName, text: newThoughts };
         }
         return item;
       })
@@ -57,7 +57,7 @@ export default function Card({
               placeholder="edit your thoughts..."
             />
           ) : (
-            <span>{thoughts}</span>
+            <span>{text}</span>
           )}
         </p>{" "}
         {editing && <StyledButton type="submit"> + </StyledButton>}

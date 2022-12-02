@@ -4,6 +4,7 @@ import Form from "../components/Form";
 import { nanoid } from "nanoid";
 
 import { useState } from "react";
+import { useEffect } from "react";
 
 export default function HomePage() {
   const [cards, setCards] = useState([]);
@@ -12,11 +13,24 @@ export default function HomePage() {
 
   console.log("cards array: ", cards);
 
+  async function getQuestions() {
+    try {
+      const response = await fetch(
+        "https://lean-coffee-board-api-nextjs.vercel.app/api/questions"
+      );
+      const questionList = await response.json();
+      setCards(questionList);
+    } catch (error) {
+      console.error("du kannst gar nichts");
+    }
+  }
+
+  useEffect(() => {
+    getQuestions();
+  }, []);
+
   function handleAddCard(newCard) {
     setCards([{ id: nanoid(), ...newCard }, ...cards]);
-    console.log(cards);
-    console.log(newCard);
-    console.log(cards);
   }
 
   function handleRemoveCard(id) {
