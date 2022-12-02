@@ -55,6 +55,19 @@ export default function HomePage() {
     getQuestions();
   }
 
+  async function handleEditedCard(editId, updatedQuestion) {
+    await fetch(
+      `https://lean-coffee-board-api-nextjs.vercel.app/api/questions/${editId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedQuestion),
+      }
+    );
+  }
+
   function handleEditCard(id) {
     setEditing(true);
     setEditId(id);
@@ -72,6 +85,7 @@ export default function HomePage() {
           setEditing={setEditing}
           setCards={setCards}
           editId={editId}
+          onSaveEdited={handleEditedCard}
         />
       </StyledMain>
       <Form onCreateNew={pushNewCard} />
