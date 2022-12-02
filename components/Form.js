@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { HiOutlineDocumentAdd } from "react-icons/hi";
 
 export default function Form({ onCreateNew }) {
   async function handleSubmit(event) {
@@ -34,7 +35,10 @@ export default function Form({ onCreateNew }) {
             placeholder="your name"
             required
           />
-          <StyledButton type="submit"> + </StyledButton>
+          <StyledButton type="submit">
+            {" "}
+            <HiOutlineDocumentAdd size="20px" />{" "}
+          </StyledButton>
         </StyledForm>
       </StyledFooter>
     </>

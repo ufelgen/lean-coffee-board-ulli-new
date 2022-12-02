@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import styled from "styled-components";
 import { HiTrash } from "react-icons/hi";
-import { HiPencil } from "react-icons/hi";
+import { HiPencil, HiArrowLeft, HiOutlineDocumentAdd } from "react-icons/hi";
 
 export default function CardSection({
   array,
@@ -30,7 +30,7 @@ export default function CardSection({
       {array.map((item) => (
         <Fragment key={item.id}>
           <StyledCard>
-            <form onSubmit={handleSubmitEdit}>
+            <StyledForm onSubmit={handleSubmitEdit}>
               <h4>
                 {" "}
                 {editing && item.id === editId ? (
@@ -38,29 +38,38 @@ export default function CardSection({
                     id="newName"
                     name="newName"
                     type="text"
-                    placeholder="edit your name"
+                    defaultValue={item.name}
                   />
                 ) : (
-                  <span>{item.name}</span>
+                  <StyledName>{item.name}</StyledName>
                 )}{" "}
                 is thinking about...
               </h4>
-              <p>
+              <StyledText>
                 {editing && item.id === editId ? (
                   <input
                     id="newThoughts"
                     name="newThoughts"
                     type="text"
-                    placeholder="edit your thoughts..."
+                    defaultValue={item.text}
                   />
                 ) : (
                   <span>{item.text}</span>
                 )}
-              </p>{" "}
+              </StyledText>{" "}
               {editing && item.id === editId && (
-                <StyledButton type="submit"> + </StyledButton>
+                <>
+                  <StyledButton type="submit">
+                    {" "}
+                    <HiOutlineDocumentAdd size="20px" />{" "}
+                  </StyledButton>
+                  <StyledButton type="button" onClick={() => setEditing(false)}>
+                    {" "}
+                    <HiArrowLeft />{" "}
+                  </StyledButton>
+                </>
               )}
-            </form>
+            </StyledForm>
             <StyledRemoveButton onClick={() => onRemoveCard(item.id)}>
               <HiTrash size="35px" />
             </StyledRemoveButton>
@@ -100,4 +109,17 @@ const StyledButton = styled.button`
   background-color: black;
   font-size: 20px;
   font-weight: bold;
+`;
+
+const StyledForm = styled.form`
+  width: 90%;
+`;
+
+const StyledName = styled.span`
+  font-weight: bold;
+  color: purple;
+`;
+
+const StyledText = styled.p`
+  text-align: justify;
 `;
