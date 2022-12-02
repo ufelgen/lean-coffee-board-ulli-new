@@ -17,11 +17,9 @@ export default function CardSection({
     const newName = event.target.elements.newName.value;
     const newThoughts = event.target.elements.newThoughts.value;
 
-    const updatedQuestion = array.filter((item) => {
-      if (item.id === editId) {
-        return { id: item.id, name: newName, text: newThoughts };
-      }
-    });
+    const updatedQuestion = { name: newName, text: newThoughts, id: editId };
+
+    console.log("updated question: ", updatedQuestion);
     onSaveEdited(editId, updatedQuestion);
 
     setEditing(false);

@@ -45,7 +45,6 @@ export default function HomePage() {
   }
 
   async function handleRemoveCard(id) {
-    // setCards(cards.filter((card) => card.id !== id));
     await fetch(
       `https://lean-coffee-board-api-nextjs.vercel.app/api/questions/${id}`,
       {
@@ -66,6 +65,7 @@ export default function HomePage() {
         body: JSON.stringify(updatedQuestion),
       }
     );
+    getQuestions();
   }
 
   function handleEditCard(id) {

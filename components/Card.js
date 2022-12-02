@@ -20,16 +20,12 @@ export default function Card({
     event.preventDefault();
     const newName = event.target.elements.newName.value;
     const newThoughts = event.target.elements.newThoughts.value;
-    // const updatedQuestion = {
-    //   name: newName,
-    //   text: newThoughts,
-    // };
-    const updatedQuestion = array.map((item) => {
+    const editedQuestion = array.map((item) => {
       if (item.id === editId) {
         return { id: item.id, name: newName, text: newThoughts };
       }
     });
-    onSaveEdited(editId, updatedQuestion);
+    onSaveEdited(editId, editedQuestion);
     // setCards(
     //   array.map((item) => {
     //     if (item.id === editId) {
