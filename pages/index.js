@@ -1,7 +1,6 @@
 import Header from "../components/Header";
 import CardSection from "../components/CardSection";
 import Form from "../components/Form";
-import EditForm from "../components/EditForm";
 import { nanoid } from "nanoid";
 
 import { useState } from "react";

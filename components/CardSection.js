@@ -1,5 +1,6 @@
 import Card from "./Card";
 import { Fragment } from "react";
+
 export default function CardSection({
   array,
   onRemoveCard,
