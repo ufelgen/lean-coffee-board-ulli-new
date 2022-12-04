@@ -19,25 +19,29 @@ export default function Form({ onCreateNew }) {
     <>
       <StyledFooter>
         <StyledForm onSubmit={handleSubmit}>
-          <label htmlFor="thoughts">your thoughts: </label>
-          <input
-            id="thoughts"
-            name="thoughts"
-            type="text"
-            placeholder="type your thoughts..."
-            required
-          />
-          <label htmlFor="name"> your name: </label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            placeholder="your name"
-            required
-          />
+          <StyledName>
+            <label htmlFor="thoughts">your thoughts: </label>
+            <StyledInput
+              id="thoughts"
+              name="thoughts"
+              type="text"
+              placeholder="What are you thinking about?"
+              required
+            />
+          </StyledName>
+          <StyledText>
+            <label htmlFor="name"> your name: </label>
+            <StyledInput
+              id="name"
+              name="name"
+              type="text"
+              placeholder="your name"
+              required
+            />
+          </StyledText>
           <StyledButton type="submit">
             {" "}
-            <HiOutlineDocumentAdd size="20px" />{" "}
+            <HiOutlineDocumentAdd size="35px" />{" "}
           </StyledButton>
         </StyledForm>
       </StyledFooter>
@@ -49,23 +53,39 @@ const StyledFooter = styled.footer`
   background-color: grey;
   position: fixed;
   bottom: 0;
-  height: 10vh;
+  height: 15vh;
   width: 100%;
 `;
 
 const StyledForm = styled.form`
-  margin-top: 15px;
-  padding: 5px;
-  display: flex;
+  padding: 2px;
+  display: grid;
+  grid-template-areas:
+    "name button"
+    "text button";
   align-items: center;
   font-size: 20px;
-  justify-content: space-around;
 `;
 
 const StyledButton = styled.button`
-  border-radius: 50%;
   color: white;
   background-color: black;
-  font-size: 20px;
-  font-weight: bold;
+  grid-area: button;
+  margin-right: 10px;
+`;
+
+const StyledName = styled.div`
+  grid-area: name;
+  padding-left: 10px;
+  padding-top: 5px;
+`;
+
+const StyledText = styled.div`
+  grid-area: text;
+  padding-left: 10px;
+  padding-top: 5px;
+`;
+
+const StyledInput = styled.input`
+  width: 80vw;
 `;

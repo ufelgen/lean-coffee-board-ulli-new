@@ -94,5 +94,5 @@ export default function HomePage() {
 }
 
 const StyledMain = styled.main`
-  margin-bottom: 15vh;
+  margin-bottom: 17vh;
 `;
