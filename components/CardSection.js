@@ -136,7 +136,7 @@ const StyledBackButton = styled.button`
 `;
 
 const StyledForm = styled.form`
-  width: 90%;
+  width: 80%;
 `;
 
 const StyledName = styled.span`
