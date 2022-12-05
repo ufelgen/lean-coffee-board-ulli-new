@@ -28,7 +28,7 @@ export default function HomePage() {
 
   useEffect(() => {
     getQuestions();
-  }, [cards]);
+  }, []);
 
   async function pushNewCard(newCard) {
     await fetch(
