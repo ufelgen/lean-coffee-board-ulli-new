@@ -20,7 +20,7 @@ export default function HomePage() {
         "https://lean-coffee-board-api-nextjs.vercel.app/api/questions"
       );
       const questionList = await response.json();
-      setCards(questionList);
+      setCards(questionList.reverse());
     } catch (error) {
       console.error("du kannst gar nichts");
     }
