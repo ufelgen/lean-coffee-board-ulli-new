@@ -1,6 +1,8 @@
-# New Project
+# Lean Coffee Board - GLOBAL
 
 This project was created from the neue fische next template.
+
+This a lean coffee board created as recap project in web dev class. This is the version that is connected to the API. 
 
 ## Development
 
